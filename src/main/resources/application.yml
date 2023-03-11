@@ -1,4 +1,6 @@
 spring:
+  thymeleaf:
+    enabled: true
   data:
     jdbc:
       repositories:

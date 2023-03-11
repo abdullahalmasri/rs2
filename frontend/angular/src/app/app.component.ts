@@ -19,8 +19,18 @@ export class AppComponent implements OnInit{
   constructor(private noteService:NoteServices){}
 
   ngOnInit(){
-    
-    this.getNotes();
+    this.getLogin();
+    // this.getNotes();
+  }
+  public getLogin():any{
+    // console.log(th);
+    this.noteService.getLogin().subscribe(
+        (da:any)=>{
+          console.log("this is login ",da);
+          this.data =da;
+
+        }
+    )
   }
 
   public getNotes():void{

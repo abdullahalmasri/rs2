@@ -18,6 +18,9 @@ export class NoteServices{
         return this.http.get<Note[]>(`${this.apiServerUrl}/pageData?page=${page}&size=${size}`);
     }
 
+    public getLogin():Observable<any>{
+        return this.http.get(`http://localhost:8888/login`,{responseType: 'text'});
+    }
     public addNote(note: Note):Observable<Note>{
         return this.http.post<Note>(`${this.apiServerUrl}/createNote`,note);
     }

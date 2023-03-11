@@ -1,8 +1,8 @@
 package com.company.labeling.security;
 
 import com.company.labeling.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -11,6 +11,7 @@ import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,18 +19,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
-public class config{
+@Configuration
+public class config implements WebMvcConfigurer {
     private final JwtFilter jwtFilter;
     private final UserService userService;
 
 
-    // @lazy to allow circle dependicy
-    public config(@Lazy
-                          JwtFilter jwtFilter, UserService userService) {
+    // @lazy to allow circle dependency
+    public config(@Lazy JwtFilter jwtFilter, @Lazy UserService userService) {
         this.jwtFilter = jwtFilter;
         this.userService = userService;
     }
@@ -54,6 +56,8 @@ public class config{
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
+                .loginPage("/login")
+//                .loginProcessingUrl("/api/v1/auth/pageData")
                 .successForwardUrl("/api/v1/auth/pageData")
                 .defaultSuccessUrl("/api/v1/auth/pageData", true)
                 .permitAll()
@@ -88,5 +92,9 @@ public class config{
                 return userService.loadUserByUsername(username);
             }
         };
+    }
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
     }
 }

@@ -37,10 +37,16 @@ public class UserController {
         this.authenticationManager = authenticationManager;
     }
     @GetMapping("/home")
-    public String successPage(HttpServletRequest httpServletRequest) {
+    public String successPage() {
 
             return "welcome";
 
+    }
+
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @ResponseBody
+    public String getLogin(){
+        return "login";
     }
 
 
