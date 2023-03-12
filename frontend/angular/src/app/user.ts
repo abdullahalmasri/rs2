@@ -1,7 +1,4 @@
 export interface User{
-    id:number;
-   
-     name:string;
-     username:String;
-     password:number;
+     username?:String;
+     password?:number;
 }

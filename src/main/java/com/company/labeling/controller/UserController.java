@@ -1,5 +1,6 @@
 package com.company.labeling.controller;
 
+import com.company.labeling.data.UserAuth;
 import com.company.labeling.security.JwtUtil;
 import com.company.labeling.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -52,20 +53,19 @@ public class UserController {
     @RequestMapping(value = "/getToken", method = RequestMethod.POST)
     @ResponseBody
     public String getToken(
-            @RequestParam String username,
-            @RequestParam Integer password) throws Exception {
+            @RequestBody UserAuth userAuth) throws Exception {
 
-        log.info("the token will be generated for user {}", username);
+        log.info("the token will be generated for user {}", userAuth.getUsername());
         try {
             authenticationManager
                     .authenticate(
                             new UsernamePasswordAuthenticationToken(
-                                    username, password)
+                                    userAuth.getUsername(), userAuth.getPassword())
                     );
         } catch (Exception e) {
             throw new Exception("invalid username or password");
         }
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userAuth.getUsername());
         return jwtUtil.generateToken(userDetails);
     }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-page-data',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageDataComponent implements OnInit {
 
-  constructor() { }
+  currentUser: any;
+  constructor(private token: TokenStorageService) { }
 
   ngOnInit(): void {
+    this.currentUser = this.token.getUser();
   }
 
 }

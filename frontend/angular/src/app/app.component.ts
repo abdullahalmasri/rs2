@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
   constructor(private noteService:NoteServices){}
 
   ngOnInit(){
-    this.getLogin();
+    // this.getLogin();
     // this.getNotes();
   }
   public getLogin():any{
