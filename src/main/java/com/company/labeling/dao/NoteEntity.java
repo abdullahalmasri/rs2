@@ -1,14 +1,19 @@
 package com.company.labeling.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
+
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+//@ToString(callSuper=true, includeFieldNames=true)
 @Entity
 @Table(name = ModelEntity.NOTE)
-@Data
+//@MappedSuperclass
 public class NoteEntity {
     @Id
     @SequenceGenerator(name = "note_sequence",sequenceName = "note_sequence",allocationSize = 1)
@@ -23,4 +28,13 @@ public class NoteEntity {
     @ManyToMany(mappedBy = "noteEntities",fetch = FetchType.EAGER)
     private List<LabelEntity> labelEntity;
 
+    @Override
+    public String toString() {
+        return "NoteEntity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", labelEntity=" + labelEntity +
+                '}';
+    }
 }

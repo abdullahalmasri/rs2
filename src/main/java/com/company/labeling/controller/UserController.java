@@ -53,19 +53,20 @@ public class UserController {
     @RequestMapping(value = "/getToken", method = RequestMethod.POST)
     @ResponseBody
     public String getToken(
-            @RequestBody UserDto userDto) throws Exception {
+            @RequestParam String username,
+            @RequestParam Integer password) throws Exception {
 
-        log.info("the token will be generated for user {}", userDto.getName());
+        log.info("the token will be generated for user {}", username);
         try {
             authenticationManager
                     .authenticate(
                             new UsernamePasswordAuthenticationToken(
-                                    userDto.getUsername(), userDto.getPassword())
+                                    username, password)
                     );
         } catch (Exception e) {
             throw new Exception("invalid username or password");
         }
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userDto.getUsername());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return jwtUtil.generateToken(userDetails);
     }
 
