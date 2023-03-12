@@ -2,13 +2,20 @@ package com.company.labeling.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
+
+@Data
+//@ToString(callSuper=true, includeFieldNames=true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 @Entity
 @Table(name = ModelEntity.LABEL)
-@Data
+//@MappedSuperclass
 public class LabelEntity {
     @Id
     @SequenceGenerator(name = "label_sequence",sequenceName = "label_sequence",allocationSize = 1)
@@ -26,4 +33,12 @@ public class LabelEntity {
     private List<NoteEntity> noteEntities;
 
 
+    @Override
+    public String toString() {
+        return "LabelEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", noteEntities=" + noteEntities +
+                '}';
+    }
 }

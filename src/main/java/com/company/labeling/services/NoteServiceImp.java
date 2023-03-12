@@ -105,7 +105,7 @@ public class NoteServiceImp implements NoteService {
             noteDtos.add(noteDto);
         }
         Page<NoteDto> noteDtos1 = new PageImpl<>(noteDtos);
-        log.info("the data [{}]", noteDtos1.getContent());
+//        log.info("the data [{}]", noteDtos1.getContent());
         return noteDtos1;
     }
 }

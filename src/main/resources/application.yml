@@ -1,6 +1,6 @@
 spring:
   thymeleaf:
-    enabled: true
+    enabled: false
   data:
     jdbc:
       repositories:

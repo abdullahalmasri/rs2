@@ -24,8 +24,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
-@Configuration
-public class config implements WebMvcConfigurer {
+public class config {
     private final JwtFilter jwtFilter;
     private final UserService userService;
 
@@ -56,14 +55,13 @@ public class config implements WebMvcConfigurer {
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
-                .loginPage("/login")
-//                .loginProcessingUrl("/api/v1/auth/pageData")
-                .successForwardUrl("/api/v1/auth/pageData")
-                .defaultSuccessUrl("/api/v1/auth/pageData", true)
-                .permitAll()
-                .and()
+                        .loginPage("http://localhost:4200")
+                        .loginProcessingUrl("http://localhost:4200/api/v1/auth/pageData")
+                        .successForwardUrl("http://localhost:4200/api/v1/auth/pageData")
+                        .defaultSuccessUrl("http://localhost:4200/api/v1/auth/pageData", true)
+                        .permitAll().and()
                 .logout().deleteCookies("remove").invalidateHttpSession(false)
-                .logoutUrl("/api/v1/auth/login").logoutSuccessUrl("/api/v1/auth/login").permitAll();
+                .logoutUrl("http://localhost:4200").logoutSuccessUrl("http://localhost:4200").permitAll();
 
         return  http.build();
     }
@@ -83,7 +81,7 @@ public class config implements WebMvcConfigurer {
 
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
             //here we will connected it with postgres records
             @Override
@@ -93,8 +91,8 @@ public class config implements WebMvcConfigurer {
             }
         };
     }
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("http://localhost:4200").setViewName("login");
+//    }
 }

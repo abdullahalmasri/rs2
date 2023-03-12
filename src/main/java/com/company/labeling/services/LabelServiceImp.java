@@ -1,24 +1,21 @@
 package com.company.labeling.services;
 
 import com.company.labeling.dao.LabelEntity;
-import com.company.labeling.dao.LabelMapper;
 import com.company.labeling.dao.sql.LabelRepo;
 import com.company.labeling.data.LabelDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class LabelServiceImp implements LabelService{
-    @Autowired
-    private LabelRepo labelRepo;
+    private final LabelRepo labelRepo;
     private final ObjectMapper objectMapper;
 
-    public LabelServiceImp(ObjectMapper objectMapper) {
+    public LabelServiceImp(LabelRepo labelRepo, ObjectMapper objectMapper) {
+        this.labelRepo = labelRepo;
         this.objectMapper = objectMapper;
     }
 
