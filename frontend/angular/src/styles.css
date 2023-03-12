@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-* {
-  box-sizing: border-box;
+
+body{ 
+     background: url('https://rare-gallery.com/uploads/posts/388677-4k-wallpaper.jpg');
+     background-attachment: fixed;
+     background-repeat: no-repeat;
+     background-size: 100% 100%;
 }

@@ -2,7 +2,6 @@ package com.company.labeling.data;
 
 import com.company.labeling.dao.NoteEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.List;
 

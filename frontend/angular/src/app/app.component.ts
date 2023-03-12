@@ -9,6 +9,9 @@ import { NoteServices } from './note.services';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   public notes: Note[] | undefined;
   public data: any[] | undefined;
   

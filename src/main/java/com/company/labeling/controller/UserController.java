@@ -1,6 +1,5 @@
 package com.company.labeling.controller;
 
-import com.company.labeling.data.UserDto;
 import com.company.labeling.security.JwtUtil;
 import com.company.labeling.services.UserService;
 import lombok.extern.slf4j.Slf4j;

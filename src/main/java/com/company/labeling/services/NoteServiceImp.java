@@ -1,7 +1,6 @@
 package com.company.labeling.services;
 
 import com.company.labeling.dao.NoteEntity;
-import com.company.labeling.dao.NoteMapper;
 import com.company.labeling.dao.sql.NoteRepo;
 import com.company.labeling.data.NoteDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j

@@ -242,7 +242,7 @@
   dependencies:
     "tslib" "^2.2.0"
 
-"@angular/material@12.2.0":
+"@angular/material@^12.2.0":
   "integrity" "sha512-onrWWoukVDt+lBRFLAaw9JFjncGMKGBPRq0VyT/ppl6tfw3+l/AiQsUd9lzpFmZfkH6PZZwv97k/5eu+6Y8jdg=="
   "resolved" "https://registry.npmjs.org/@angular/material/-/material-12.2.0.tgz"
   "version" "12.2.0"
