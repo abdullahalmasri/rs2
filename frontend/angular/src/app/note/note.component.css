@@ -1,0 +1,21 @@
+.note {
+    background-color: rgb(255, 240, 70);
+    min-height: 100px;
+    padding: 10px;
+    margin:10px;
+    width: 100px;
+    -webkit-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.close {
+   left: -14px;
+    top: -18px;
+    position: relative;
+    cursor:pointer;
+}
+
+.content {
+    outline: none;
+    height: 100px;
+    overflow-y: auto;
+}

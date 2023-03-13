@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Note } from '../note';
+import { NoteServices } from '../note.services';
 import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
@@ -8,14 +10,25 @@ import { TokenStorageService } from '../_services/token-storage.service';
   styleUrls: ['./page-data.component.css']
 })
 export class PageDataComponent implements OnInit {
-  [x: string]: any;
-note: Note[] | undefined;
+  // [x: string]: any;
+// notes: Note[] | undefined;
   currentUser: any;
-  constructor(private token: TokenStorageService) { }
+   notes:any=[];
+  public data: any[] | undefined;
+  
+  pageSize = 10;
+  pageIndex = 0;
+  constructor(private token: TokenStorageService,private noteService:NoteServices) { 
+    // notes:[null];
+  }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
+    this.notes=this.getNote();
+    console.log('me',this.notes);
+
   }
+  
 
   // addNote () {
   //   this.notes.push({ id: this.notes.length + 1,content:'' });
@@ -56,5 +69,20 @@ note: Note[] | undefined;
   //     }
   //   });
   // }
+
+    getNote(){
+    // console.log("page ",this.pageIndex);
+    // console.log("size ",this.pageSize);
+    
+     this.noteService.getNotes(this.pageIndex,this.pageSize).subscribe(
+      (response: Note[])=>{
+           this.notes=response;
+        // console.log('the data is ',this.notes)
+
+      },(error:HttpErrorResponse)=>{
+        console.log("error ", error);
+      }
+    )
+  }
 
 }

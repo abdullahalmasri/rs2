@@ -1,0 +1,6 @@
+<div class="note">
+	<span class="close" (click)="onDismiss($event)">X</span>
+	<div class="content" contenteditable="true" (blur)="onFocusOut($event)">
+		<ng-content></ng-content>
+	</div>
+</div>

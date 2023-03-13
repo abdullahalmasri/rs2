@@ -1,6 +1,6 @@
 <div class="app">
-	<!-- <app-note *ngFor="let note of notes" (dismiss)="deleteNote($event)" (focusout)="saveNote($event)" id="{{note.id}}">{{note.content}}</app-note> -->
+	<app-note *ngFor="let note of notes">{{note.content}}</app-note>
 </div>
-<div (click)="addNote()" (enter)="addNote()" tabindex="0" class="addButton">
+<!-- <div (click)="addNote()" (enter)="addNote()" tabindex="0" class="addButton"> -->
 	+
-</div>
+<!-- </div> -->

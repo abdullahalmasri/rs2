@@ -9,13 +9,15 @@ import { LoginModuleModule } from './login-module/login-module.module';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageDataComponent } from './page-data/page-data.component';
+import { NoteComponent } from './note/note.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponentComponent,
-    PageDataComponent
+    PageDataComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,
