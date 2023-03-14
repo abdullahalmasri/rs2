@@ -34,7 +34,7 @@ export class PageDataComponent implements OnInit {
     this.currentUser = this.token.getUser();
     // console.log(this.getNote());
     this.getNote()
-    console.log('me',this.entityListFormGroup);
+    console.log('me',this.entityListFormGroup.controls.notes);
 
   }
 
