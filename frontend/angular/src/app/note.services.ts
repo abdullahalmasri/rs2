@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Note } from "./note";
 import { environment } from "src/environments/environment";
 
@@ -11,11 +11,12 @@ import { environment } from "src/environments/environment";
     providedIn:'root'
 })
 export class NoteServices{
+    private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     private apiServerUrl = environment.apiBaseUrl;
     constructor(private http:HttpClient){}
 
-    public getNotes(page:number,size:number):Observable<Note[]>{
-        return this.http.get<Note[]>(`${this.apiServerUrl}/pageData?page=${page}&size=${size}`);
+    public getNotes(page:number,size:number):Observable<Array<Note>>{
+        return this.http.get<Array<Note>>(`${this.apiServerUrl}/pageData?page=${page}&size=${size}`,{responseType: 'json'});
     }
 
     public getLogin():Observable<any>{

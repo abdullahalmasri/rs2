@@ -1,6 +1,9 @@
-<div class="app">
-	<app-note *ngFor="let note of notes">{{note.content}}</app-note>
+<div class="app" [formGroup]="entityListFormGroup">
+	<div #chipList formControlName="notes" data-cy="chipList">
+		
+	<app-note *ngFor="let note of entityListFormGroup.value.notes.content">{{note.content}}</app-note>
+	</div>
 </div>
-<!-- <div (click)="addNote()" (enter)="addNote()" tabindex="0" class="addButton"> -->
+<div (click)="addNote()" (enter)="addNote()" tabindex="0" class="addButton">
 	+
-<!-- </div> -->
+</div>

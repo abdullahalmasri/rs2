@@ -63,7 +63,7 @@ public class UserController {
                                     userAuth.getUsername(), userAuth.getPassword())
                     );
         } catch (Exception e) {
-            throw new Exception("invalid username or password");
+            throw new NullPointerException("invalid username or password");
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(userAuth.getUsername());
         return jwtUtil.generateToken(userDetails);

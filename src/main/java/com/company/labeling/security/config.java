@@ -51,13 +51,13 @@ public class config {
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
-                        .loginPage("http://localhost:4200/")
-                        .loginProcessingUrl("http://localhost:4200/api/v1/auth/pageData")
-                        .successForwardUrl("http://localhost:4200/api/v1/auth/pageData")
-                        .defaultSuccessUrl("http://localhost:4200/api/v1/auth/pageData", true)
+                        .loginPage("http://localhost:4300/")
+                        .loginProcessingUrl("http://localhost:4300/api/v1/auth/pageData")
+                        .successForwardUrl("http://localhost:4300/api/v1/auth/pageData")
+                        .defaultSuccessUrl("http://localhost:4300/api/v1/auth/pageData", true)
                         .permitAll().and()
                 .logout().deleteCookies("remove").invalidateHttpSession(false)
-                .logoutUrl("http://localhost:4200").logoutSuccessUrl("http://localhost:4200").permitAll();
+                .logoutUrl("http://localhost:4300").logoutSuccessUrl("http://localhost:4300").permitAll();
 
         return  http.build();
     }
