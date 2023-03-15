@@ -47,6 +47,7 @@ export class PageDataComponent implements OnInit {
       title: '',
       label: []
     });
+    console.log(this.notes);
     // sort the array
     this.notes= this.notes.sort((a,b)=>{ return b.id-a.id});
     // localStorage.setItem('notes', JSON.stringify(this.notes));

@@ -1,12 +1,12 @@
 <div class="app" [formGroup]="entityListFormGroup">
 	<div #chipList formControlName="notes" data-cy="chipList">
 		
-	<app-note *ngFor="let note of entityListFormGroup.value.notes.content">
+	<app-note *ngFor="let note of entityListFormGroup.value.notes.content" id={{note.id}}>
 		{{note.title}}
 		<hr>
 		{{note.content}}
 		<hr>
-		<ng-container *ngFor="let control of note.labelEntity;let j=index">
+		<ng-container *ngFor="let control of note.labelEntity;">
         	{{control.name}}
        </ng-container>
 	
