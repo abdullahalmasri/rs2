@@ -1,5 +1,5 @@
 <div class="app" [formGroup]="entityListFormGroup">
-	<div #chipList formControlName="notes" data-cy="chipList">
+	<!-- <div #chipList formControlName="notes" data-cy="chipList"> -->
 		
 	<app-note *ngFor="let note of entityListFormGroup.value.notes.content" id={{note.id}}>
 		{{note.title}}
@@ -12,7 +12,7 @@
 	
 	</app-note>
 	</div>
-</div>
+<!-- </div> -->
 <div (click)="addNote()" (enter)="addNote()" tabindex="0" class="addButton">
 	+
 </div>

@@ -41,14 +41,14 @@ export class PageDataComponent implements OnInit {
   
 
   addNote () {
-    this.notes.push({
-      content: '',
-      id: 0,
-      title: '',
-      label: []
-    });
-    console.log(this.notes);
+    let note :Note ;
+    console.log('notes ',this.notes);
+    note={content:"",id:this.notes.length+1,label:[],title:""};
+    console.log(note);
+    
     // sort the array
+    this.notes.push(note);
+
     this.notes= this.notes.sort((a,b)=>{ return b.id-a.id});
     // localStorage.setItem('notes', JSON.stringify(this.notes));
   };

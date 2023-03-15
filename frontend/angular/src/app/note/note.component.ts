@@ -11,7 +11,7 @@ export class NoteComponent implements OnInit {
   @Output() focusout = new EventEmitter();
   constructor() {}
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
   
   onDismiss(event: any){
