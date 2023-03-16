@@ -1,18 +1,23 @@
 <div class="app" [formGroup]="entityListFormGroup">
-	<!-- <div #chipList formControlName="notes" data-cy="chipList"> -->
-		
-	<app-note *ngFor="let note of entityListFormGroup.value.notes.content" id={{note.id}}>
-		{{note.title}}
-		<hr>
-		{{note.content}}
-		<hr>
-		<ng-container *ngFor="let control of note.labelEntity;">
-        	{{control.name}}
-       </ng-container>
-	
-	</app-note>
-	</div>
-<!-- </div> -->
-<div (click)="addNote()" (enter)="addNote()" tabindex="0" class="addButton">
-	+
+  <!-- <div #chipList formControlName="notes" data-cy="chipList"> -->
+
+  <app-note
+    *ngFor="let note of entityListFormGroup.value.notes.content"
+    id="{{ note.id }}"
+  >
+    {{ note.title }}
+    <hr />
+    {{ note.content }}
+    <hr />
+    <ng-container *ngFor="let control of note.labelEntity">
+      {{ control.name }}
+    </ng-container>
+  </app-note>
 </div>
+<!-- </div> -->
+<div (click)="open()" class="addButton">
+		+
+</div>
+
+
+   

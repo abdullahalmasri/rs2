@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageDataComponent } from './page-data/page-data.component';
 import { NoteComponent } from './note/note.component';
+import { ModalComponent } from './modal/modal.component';
+
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { NoteComponent } from './note/note.component';
     AppComponent,
     LoginComponentComponent,
     PageDataComponent,
-    NoteComponent
+    NoteComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,9 @@ import { NoteComponent } from './note/note.component';
     ],
 
   providers: [NoteServices],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[
+    ModalComponent
+  ],
 })
 export class AppModule { }

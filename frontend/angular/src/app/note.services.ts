@@ -23,7 +23,7 @@ export class NoteServices{
         return this.http.get(`http://localhost:8888/login`,{responseType: 'text'});
     }
     public addNote(note: Note):Observable<Note>{
-        return this.http.post<Note>(`${this.apiServerUrl}/createNote`,note);
+        return this.http.post<Note>(`${this.apiServerUrl}/createNote`,note,{ responseType: 'json', headers: this.headers });
     }
 
     public editNotes(note: Note):Observable<Note>{
