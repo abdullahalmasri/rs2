@@ -87,8 +87,4 @@ public class config {
             }
         };
     }
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("http://localhost:4200").setViewName("login");
-//    }
 }

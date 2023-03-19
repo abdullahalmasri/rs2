@@ -1,11 +1,13 @@
 package com.company.labeling.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -16,15 +18,17 @@ import java.util.List;
 @Entity
 @Table(name = ModelEntity.LABEL)
 //@MappedSuperclass
-public class LabelEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+public class LabelEntity implements Serializable {
     @Id
     @SequenceGenerator(name = "label_sequence",sequenceName = "label_sequence",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "label_sequence")
     @Column(name = "label_id_rd", nullable = false, unique = true)
-    private int id;
-    @Column(name = "name_rd",length = 32)
+    private Long id;
+    @Column(name = "name_rd",length = 32,unique = true)
     private String name;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
             name = "note_label",
             joinColumns = @JoinColumn(name = "label_id_rd"),
@@ -32,13 +36,21 @@ public class LabelEntity {
     @JsonIgnore
     private List<NoteEntity> noteEntities;
 
+    public LabelEntity(Long id,String name){
+        super();
+        this.setId(id);
+        this.setName(name);
+    }
+    public LabelEntity(String str){
+        this.setName(str);
+    }
+
 
     @Override
     public String toString() {
         return "LabelEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", noteEntities=" + noteEntities +
                 '}';
     }
 }

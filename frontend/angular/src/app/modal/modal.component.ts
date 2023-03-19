@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LabeledStatement } from 'typescript';
+import { Label } from '../label';
 import { Note } from '../note';
 import { NoteServices } from '../note.services';
 
@@ -10,6 +12,7 @@ import { NoteServices } from '../note.services';
 })
 export class ModalComponent implements OnInit {
   @Input() public note: Note ;
+  @Input() public label:Label;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   @Input() fromParent: any;
@@ -17,7 +20,8 @@ export class ModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,private noteService: NoteServices
   ) {
-    this.note={title:"",content:"",labelEntity:[]}
+    this.label={name:""}
+    this.note={title:"",content:"",labels:[this.label]}
    }
 
   ngOnInit() {

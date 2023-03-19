@@ -9,7 +9,7 @@
     <hr />
     {{ note.content }}
     <hr />
-    <ng-container *ngFor="let control of note.labelEntity">
+    <ng-container *ngFor="let control of note.labels">
       {{ control.name }}
     </ng-container>
   </app-note>

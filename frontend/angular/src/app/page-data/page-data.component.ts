@@ -52,7 +52,7 @@ export class PageDataComponent implements OnInit {
     note = {
       content: "",
       id: this.entityListFormGroup.value.notes.totalElements + 1,
-      labelEntity: [],
+      labels: [],
       title: "",
     };
     console.log(note);
@@ -131,7 +131,7 @@ export class PageDataComponent implements OnInit {
     this.note = {
       title: '',
       content: '',
-      labelEntity: []
+      labels: []
     }
 
     modalRef.componentInstance.fromParent = this.note ;

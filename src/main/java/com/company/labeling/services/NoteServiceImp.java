@@ -1,7 +1,11 @@
 package com.company.labeling.services;
 
+import com.company.labeling.dao.LabelEntity;
+import com.company.labeling.dao.LabelMapper;
 import com.company.labeling.dao.NoteEntity;
+import com.company.labeling.dao.NoteMapper;
 import com.company.labeling.dao.sql.NoteRepo;
+import com.company.labeling.data.LabelDto;
 import com.company.labeling.data.NoteDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +15,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -20,9 +24,15 @@ public class NoteServiceImp implements NoteService {
     @Autowired
     private NoteRepo noteRepo;
     private final ObjectMapper objectMapper;
+    private final LabelService labelService;
+    private final NoteMapper noteMapper;
+    private final LabelMapper labelMapper;
 
-    public NoteServiceImp(ObjectMapper objectMapper) {
+    public NoteServiceImp(ObjectMapper objectMapper, LabelService labelService, NoteMapper noteMapper, LabelMapper labelMapper) {
         this.objectMapper = objectMapper;
+        this.labelService = labelService;
+        this.noteMapper = noteMapper;
+        this.labelMapper = labelMapper;
     }
 
     @Override
@@ -30,11 +40,7 @@ public class NoteServiceImp implements NoteService {
         List<NoteEntity> noteEntities = noteRepo.findAll();
         List<NoteDto> noteDtos = new ArrayList<>();
         for (NoteEntity noteEntity : noteEntities) {
-            NoteDto noteDto = new NoteDto();
-            noteDto.setId(noteEntity.getId());
-            noteDto.setContent(noteEntity.getContent());
-            noteDto.setLabelEntity(noteEntity.getLabelEntity());
-            noteDto.setTitle(noteEntity.getTitle());
+            NoteDto noteDto = noteMapper.mapToNoteDto(noteEntity);
             noteDtos.add(noteDto);
 
         }
@@ -45,11 +51,7 @@ public class NoteServiceImp implements NoteService {
     public void saveListOfNote(List<NoteDto> noteDtos) {
         List<NoteEntity> noteEntities = new ArrayList<>();
         for (NoteDto noteDto : noteDtos) {
-            NoteEntity noteEntity = new NoteEntity();
-//            noteEntity.setId(noteDto.getId());
-            noteEntity.setContent(noteDto.getContent());
-            noteEntity.setLabelEntity(noteDto.getLabelEntity());
-            noteEntity.setTitle(noteDto.getTitle());
+            NoteEntity noteEntity = noteMapper.mapToNoteEntity(noteDto);
             noteEntities.add(noteEntity);
         }
 
@@ -66,11 +68,38 @@ public class NoteServiceImp implements NoteService {
 
     @Override
     public NoteDto createNote(NoteDto noteDto) {
-        NoteEntity noteEntity = new NoteEntity();
-        noteEntity.setTitle(noteDto.getTitle());
-        noteEntity.setContent(noteDto.getContent());
-        noteEntity.setLabelEntity(noteDto.getLabelEntity());
-        noteRepo.save(noteEntity);
+        NoteEntity noteEntity =
+                noteMapper.mapToNoteEntity(noteDto);
+
+
+        for (LabelDto labelDto : noteDto.getLabels()) {
+
+            LabelEntity labelEntity = labelService.findByName(labelDto.getName());
+
+            if (labelEntity != null) {
+                List<NoteEntity> noteEntities =
+                        labelEntity.getNoteEntities().stream().collect(Collectors.toList());
+                noteEntities.forEach(noteEntity1 -> deleteNote(noteEntity1.getId()));
+
+                noteEntities.add(noteEntity);
+
+                labelEntity.setNoteEntities(noteEntities);
+                labelService.createLabel(labelMapper.mapToLabelDto(labelEntity));
+
+
+
+            } else {
+
+                List<NoteDto> noteDtos = new ArrayList<>();
+
+                noteDtos.add(noteDto);
+
+                labelDto.setNoteDtos(noteDtos);
+                labelService.createLabel(labelDto);
+
+            }
+        }
+
         log.info("the new note created yaaaay :) ");
         return noteDto;
     }
@@ -79,9 +108,7 @@ public class NoteServiceImp implements NoteService {
     public void editNote(NoteDto noteDto) {
         NoteEntity noteEntity = noteRepo.findById(noteDto.getId()).get();
         if (noteEntity != null) {
-            noteEntity.setContent(noteDto.getContent());
-            noteEntity.setLabelEntity(noteDto.getLabelEntity());
-            noteEntity.setTitle(noteDto.getTitle());
+            noteEntity = noteMapper.mapToNoteEntity(noteDto);
             noteRepo.save(noteEntity);
             log.info("the not with id [{}] has been updated successfully ", noteDto.getId());
         } else {
@@ -94,15 +121,11 @@ public class NoteServiceImp implements NoteService {
         Page<NoteEntity> noteEntities = noteRepo.findAll(pageable);
         List<NoteDto> noteDtos = new ArrayList<>();
         for (NoteEntity noteEntity : noteEntities.getContent()) {
-            NoteDto noteDto = new NoteDto();
-            noteDto.setId(noteEntity.getId());
-            noteDto.setContent(noteEntity.getContent());
-            noteDto.setLabelEntity(noteEntity.getLabelEntity());
-            noteDto.setTitle(noteEntity.getTitle());
+            NoteDto noteDto = noteMapper.mapToNoteDto(noteEntity);
             noteDtos.add(noteDto);
         }
         Page<NoteDto> noteDtos1 = new PageImpl<>(noteDtos);
-//        log.info("the data [{}]", noteDtos1.getContent());
+        log.info("the data [{}]", noteDtos1.getContent());
         return noteDtos1;
     }
 }

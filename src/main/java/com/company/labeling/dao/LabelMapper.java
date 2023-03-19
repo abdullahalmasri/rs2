@@ -4,11 +4,11 @@ import com.company.labeling.data.LabelDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface LabelMapper {
     LabelMapper MAPPER = Mappers.getMapper(LabelMapper.class);
 
-    LabelDto mapToLabelDto(LabelEntity labelEntity);
+     LabelDto mapToLabelDto(LabelEntity labelEntity);
 
-    LabelEntity mapToLabelEntity(LabelDto labelDto);
+     LabelEntity mapToLabelEntity(LabelDto labelDto);
 }

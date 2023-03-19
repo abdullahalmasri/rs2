@@ -1,7 +1,6 @@
 package com.company.labeling.dao;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 

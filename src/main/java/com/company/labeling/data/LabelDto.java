@@ -1,23 +1,27 @@
 package com.company.labeling.data;
 
-import com.company.labeling.dao.NoteEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class LabelDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class LabelDto implements Serializable {
 
-    private int id;
+    private Long id;
     private String name;
-    private List<NoteEntity> noteEntities;
+    private List<NoteDto> noteDtos;
 
     @Override
     public String toString() {
         return "LabelDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", noteEntities=" + noteEntities +
+                ", notes=" + noteDtos +
                 '}';
     }
 }
